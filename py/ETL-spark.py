@@ -30,11 +30,11 @@ contracts_df = spark.sql("SELECT * FROM contracts")
 
 contract_schema = "HID String,CUSTOMER_ID String,CO_ID String,RATEPLAN String,CO_TYPE String,DNNUM String,SIMNO String,PORTNO String,CO_ACTIVATED String,COSTAT String,COREASON String,CO_MODDATE"
 #  ----------
-display(contracts_df)
+display(contracts_df) # type: ignore
 
 # PROCESS_CONTRACT_x_CUSTOMERS ----------
 
-from pyspark.sql import functions as F
+from pyspark.sql import functions as F # type: ignore
 
 # First, process the contracts dataframe
 contracts_filtered = contracts_df.filter(
@@ -120,7 +120,7 @@ customers_final_df = customers_final_df.select(
 )
 
 # Display the final DataFrame
-show(customers_x_contracts_df)
+show(customers_x_contracts_df) # type: ignore
 
 customers_x_contracts_df.write.parquet("file:///data_enriched/ref/parquet//customers_x_contracts")
 
