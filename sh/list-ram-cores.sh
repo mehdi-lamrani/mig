@@ -1,0 +1,1 @@
+free -g | awk '/^Mem:/ {print $4 " Gb"}'
