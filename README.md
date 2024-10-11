@@ -1,3 +1,3 @@
 # mig
 
-macos
+macosdbx
