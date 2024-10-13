@@ -1,3 +1,4 @@
+
 import os
 import gzip
 from pyspark.sql import SparkSession
@@ -28,14 +29,12 @@ class conf:
 class FILES:
     BASE_PATH = "/data_enriched/ref/parquet"
     CONTRACTS = "contracts"
-    CUSTOMERS = "customers_x_contracts"
+    CUSTOMERS = "customers"
     LOCATIONS = "locations"
     SITES = "sites"
     TELCO_FILES = "telco_files"
-    TELCO_TEST = "/data_enriched/data/bkp/file.csv"
 
-    #FOLDERS = [CONTRACTS, CUSTOMERS, LOCATIONS, SITES, TELCO_FILES]
-    FOLDERS = [CUSTOMERS, SITES]
+    FOLDERS = [CONTRACTS, CUSTOMERS, LOCATIONS, SITES, TELCO_FILES]
 
 dfs = {}
 
@@ -62,7 +61,7 @@ def get_all_df_cmd():
             folder_value = getattr(FILES, folder_name)
             if isinstance(folder_value, str):
                 if not folder_value.startswith('/'):
-                      print(f'{folder_value}_df = get_df(FILES.{folder_name})')
+                      print(f'{folder_value}_df = get_df(tools.FILES.{folder_name})')
 
 # Load all the DataFrames
 load_parquet_files()
@@ -79,7 +78,7 @@ def load(filename, sep=',', header=True):
 def list_files(folder_path):
     for item in os.listdir(folder_path):
             print(item)
-            
+
 def list_paths():
     list_files(conf.REF_FILES.parquet)
 
@@ -131,4 +130,3 @@ def sftp_download(remote_path, local_path, hostname=conf.SFTP.sondja, username= 
     avg_speed = file_size / duration / 1024 / 1024
 
     stats_logger.info(f"Download completed:  {local_path} Size: {file_size / 1024 / 1024:.2f} MB, Speed: {avg_speed:.2f} MB/s")
-
